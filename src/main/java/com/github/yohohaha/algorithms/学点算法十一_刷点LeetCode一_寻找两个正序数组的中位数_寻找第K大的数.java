@@ -14,6 +14,7 @@ public class 学点算法十一_刷点LeetCode一_寻找两个正序数组的中
     public void test() {
         assertEquals(2.0, findMedianSortedArrays(new int[]{1, 3}, new int[]{2}), 0.0001);
         assertEquals(2.5, findMedianSortedArrays(new int[]{1, 2}, new int[]{3, 4}), 0.0001);
+        assertEquals(2, findMedianSortedArrays(new int[]{1, 2}, new int[]{1, 2, 3}), 0.0001);
     }
 
     /**
@@ -122,8 +123,8 @@ public class 学点算法十一_刷点LeetCode一_寻找两个正序数组的中
     /**
      * 当两个数组的元素完全排序后有交叉
      *
-     * @param toArr   数组1
-     * @param fromArr 数组2
+     * @param longerArr  长数组
+     * @param shorterArr 短数组
      *
      * @return 中位数
      */
@@ -132,75 +133,146 @@ public class 学点算法十一_刷点LeetCode一_寻找两个正序数组的中
         int n = shorterArr.length;
         // 左边应该有的元素个数
         int leftSize = (m + n + 1) / 2;
+        // 长数组分隔栏最小值
         int sMin = 0;
+        // 长数组分隔栏最大值（取不到）
         int sMax = m + 1;
-        int iMax = n;
+        // 短数组分隔栏最小值
+        int iMin = 0;
+        // 短数组分隔栏最大值（取不到）
+        int iMax = n + 1;
+        // 长数组分隔栏索引
         int s;
+        // 短数组分隔栏索引
         int i;
         do {
             s = (sMin + sMax) / 2;
             i = leftSize - s;
-            if (iMax < i) {
-                // 说明短数组元素不够，需要从长数组中取元素
+            if (iMax <= i) {
+                // 说明短数组元素不够，需要从长数组中取更多的元素
                 // 将长数组分隔栏往右移
                 sMin = s + 1;
-            } else if (i < 0) {
-                // 说明短数组元素太少，需要从短数组中取元素
+            } else if (i < iMin) {
+                // 说明短数组元素太少，需要减少长数组中的元素
                 // 将长数组分隔栏往左移
                 sMax = s;
             } else {
                 // 满足分隔条件
-                // 判断是否满足有效条件：
-                //     1. 长数组分隔栏左边的最大值 < 短数组分隔栏右边的最小值
-                //     2. 短数组分隔栏左边的最大值 < 长数组分隔栏右边的最小值
-                if (isSorted(longerArr, s, shorterArr, i)) {
-                    // 如果满足条件，说明找到元素，退出
-                    break;
+                // sMin <= s <= m
+                // iMin <= i <= n
+                // 判断是否满足有效条件（两个条件必须同时满足）：
+                //     1. 长数组分隔栏左边的最大值 <= 短数组分隔栏右边的最小值
+                //          如果不满足，说明长数组取的值大了，将长数组分隔栏往左移
+                //     2. 短数组分隔栏左边的最大值 <= 长数组分隔栏右边的最小值
+                //          如果不满足，说明长数组取的值小了，将长数组分隔栏往右移
+                if (getSeparatorMax(longerArr, s) > getSeparatorMin(shorterArr, i)) {
+                    // 不满足第1个条件
+                    sMax = s;
+                    continue;
                 }
+                if (getSeparatorMax(shorterArr, i) > getSeparatorMin(longerArr, s)) {
+                    // 不满足第2个条件
+                    sMin = s + 1;
+                    continue;
+                }
+                // 两个条件都满足
+                // 退出循环
+                break;
             }
-        } while (true);
+        } while (sMin < sMax);
         if ((m + n) % 2 == 0) {
             // 总个数是偶数
             // 取两个数组分隔栏前面的最大值和两个数组分隔栏后面的最小值求平均数
-
+            double max = getMax(longerArr, shorterArr, s, i);
+            double min = getMin(longerArr, shorterArr, s, i);
+            return (max + min) / 2.0;
         } else {
-            //
+            // 总个数是奇数
+            // 取两个数组分隔栏前面的最大值
+            return getMax(longerArr, shorterArr, s, i);
         }
-        return 0.0;
-    }
-
-    private static boolean isSorted(int[] nums1, int i1, int[] nums2, int i2) {
-        return !((i1 > 0 && i2 < nums2.length && nums1[i1 - 1] >= nums2[i2]) ||
-            (i2 > 0 && i1 < nums1.length && nums2[i2 - 1] >= nums1[i1]));
     }
 
     /**
-     * 查找特定元素插入一个有序数组后使数组继续有序的索引位置
-     *
-     * @param num 特定元素
-     * @param arr 有序数组
-     *
-     * @return 特定元素插入一个有序数组后使数组继续有序的索引位置
+     * 取分隔栏右边的最小值
+     * @param nums 数组
+     * @param i 分隔栏
+     * @return 分隔栏右边的最小值
      */
-    private static int findIndexInSortedArr(int num, int[] arr) {
-        int lo = 0;
-        int hi = arr.length;
-        while (lo < hi) {
-            // 区间中至少有一个元素
-            int mid = (lo + hi) / 2;
-            int tmp = arr[mid];
-            if (num < tmp) {
-                // 往区间左边查找
-                hi = mid;
-            } else if (tmp < num) {
-                // 往区间右边查找
-                lo = mid + 1;
+    private static int getSeparatorMin(int[] nums, int i) {
+        if (i < nums.length) {
+            return nums[i];
+        } else {
+            // 已经到达最右端，返回最大哨兵元素
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    /**
+     * 取分隔栏左边的最大值
+     * @param nums 数组
+     * @param i 分隔栏
+     * @return 分隔栏左边的最大值
+     */
+    private static int getSeparatorMax(int[] nums, int i) {
+        if (i > 0) {
+            return nums[i - 1];
+        } else {
+            // 已经到达最左端，返回最小哨兵元素
+            return Integer.MIN_VALUE;
+        }
+    }
+
+    /**
+     * 获取分隔栏左边的最大值
+     * @param longerArr 长数组
+     * @param shorterArr 短数组
+     * @param s 长数组分隔栏索引
+     * @param i 短数组分隔栏索引
+     * @return 分隔栏左边的最大值
+     */
+    private static double getMax(int[] longerArr, int[] shorterArr, int s, int i) {
+        int max;
+        if (s > 0) {
+            if (i > 0) {
+                max = Math.max(longerArr[s - 1], shorterArr[i - 1]);
             } else {
-                // 如果找到，那么此时的mid位置就是num要插入的index索引位置
-                return mid;
+                max = longerArr[s - 1];
+            }
+        } else {
+            if (i > 0) {
+                max = shorterArr[i - 1];
+            } else {
+                throw new IllegalStateException("取不到max");
             }
         }
-        // 如果没有找到，那么此时的lo位置就是num要插入的index索引位置
-        return lo;
+        return max;
     }
+
+    /**
+     * 获取分隔栏左边的最小值
+     * @param longerArr 长数组
+     * @param shorterArr 短数组
+     * @param s 长数组分隔栏索引
+     * @param i 短数组分隔栏索引
+     * @return 分隔栏左边的最小值
+     */
+    private static double getMin(int[] longerArr, int[] shorterArr, int s, int i) {
+        int min;
+        if (s < longerArr.length) {
+            if (i < shorterArr.length) {
+                min = Math.min(longerArr[s], shorterArr[i]);
+            } else {
+                min = longerArr[s];
+            }
+        } else {
+            if (i < shorterArr.length) {
+                min = shorterArr[i];
+            } else {
+                throw new IllegalStateException("取不到min");
+            }
+        }
+        return min;
+    }
+
 }
