@@ -1,9 +1,14 @@
 package com.github.yohohaha.algorithms;
 
 import com.github.yohohaha.algorithms.commons.BinaryTreeNode;
+import org.junit.Test;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
+
+import static com.github.yohohaha.algorithms.学点算法十四_将二叉树转为数组.convertTree2Array;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * created at 2020/07/30 16:36:26
@@ -11,14 +16,25 @@ import java.util.Deque;
  * @author Yohohaha
  */
 public class 学点算法十五_将数组转为二叉树 {
-    public static void main(String[] args) {
 
+    @Test
+    public void testConvertArray2Tree() {
+        BinaryTreeNode<Integer> root = convertArray2Tree(new Integer[]{1, null, 2, 4, 3, 3, 2, 2, 2, 1, null, 3, 5, null, 7, null, 8, null});
+        // 使用convertTree2Array方法帮助验证（该方法在学点算法十四验证过）
+        Integer[] arr = convertTree2Array(root);
+        // 因为数组后面的null不影响数据，为了方便测试，将数组后面的null值都去掉
+        int idx = arr.length - 1;
+        while (arr[idx] == null) {idx--;}
+        Integer[] nullFilteredArr = Arrays.copyOf(arr, idx + 1);
+        assertArrayEquals(new Integer[]{1, null, 2, 4, 3, 3, 2, 2, 2, 1, null, 3, 5, null, 7, null, 8}, nullFilteredArr);
     }
 
     /**
      * 将数组转为二叉树
+     *
      * @param arr 数组
      * @param <T> 数组类型
+     *
      * @return 二叉树根节点
      */
     public static <T extends Comparable<T>> BinaryTreeNode<T> convertArray2Tree(T[] arr) {
@@ -48,7 +64,7 @@ public class 学点算法十五_将数组转为二叉树 {
                     queue.offer(leftChild);
                 }
                 // 获取右孩子
-                T rightNodeData = arr[leftNodeIdx];
+                T rightNodeData = arr[rightNodeIdx];
                 if (rightNodeData != null) {
                     // 有右孩子
                     // 生成右孩子
@@ -75,6 +91,8 @@ public class 学点算法十五_将数组转为二叉树 {
             // 左右孩子索引都非法的时候无需做任何事情
             // 节点出队
             root = queue.poll();
+            // 右孩子索引位置+2
+            rightNodeIdx += 2;
         } while (root != null);
         return realRoot;
     }
