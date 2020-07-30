@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Yohohaha
  */
-public class 学点算法十一_刷点LeetCode一_寻找两个正序数组的中位数_寻找第K大的数 {
+public class 学点算法十二_寻找两个正序数组的中位数_寻找第K大的数 {
     @Test
     public void test() {
         assertEquals(2.0, findMedianSortedArrays(new int[]{1, 3}, new int[]{2}), 0.0001);
