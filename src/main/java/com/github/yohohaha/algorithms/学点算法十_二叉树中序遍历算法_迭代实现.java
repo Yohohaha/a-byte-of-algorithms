@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-import static com.github.yohohaha.algorithms.学点算法十五_将数组转为二叉树.convertArray2Tree;
+import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -23,7 +23,7 @@ public class 学点算法十_二叉树中序遍历算法_迭代实现 {
     @Test
     public void testInorderTraversal() {
         Integer[] arr = {31, 32, null, 34, 41, 42, 43};
-        // 使用convertArray2Tree方法帮助验证（该方法在学点算法十五验证过）
+        // 使用convertArray2Tree方法帮助验证（该方法在学点算法十二验证过）
         BinaryTreeNode<Integer> root = convertArray2Tree(arr);
         List<Integer> list = inorderTraversal(root);
         assertEquals(Arrays.asList(42, 34, 43, 32, 41, 31), list);

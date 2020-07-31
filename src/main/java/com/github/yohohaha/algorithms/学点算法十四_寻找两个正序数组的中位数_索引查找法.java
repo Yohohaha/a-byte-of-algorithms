@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Yohohaha
  */
-public class 学点算法十一_寻找两个正序数组的中位数_索引查找法 {
+public class 学点算法十四_寻找两个正序数组的中位数_索引查找法 {
     @Test
     public void test() {
         assertEquals(2.0, findMedianSortedArrays(new int[]{1, 3}, new int[]{2}), 0.0001);

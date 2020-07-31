@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
-import static com.github.yohohaha.algorithms.学点算法十四_将二叉树转为数组.convertTree2Array;
+import static com.github.yohohaha.algorithms.学点算法十一_将二叉树转为数组.convertTree2Array;
 import static org.junit.Assert.assertArrayEquals;
 
 /**
@@ -15,12 +15,12 @@ import static org.junit.Assert.assertArrayEquals;
  *
  * @author Yohohaha
  */
-public class 学点算法十五_将数组转为二叉树 {
+public class 学点算法十二_将数组转为二叉树 {
 
     @Test
     public void testConvertArray2Tree() {
         BinaryTreeNode<Integer> root = convertArray2Tree(new Integer[]{1, null, 2, 4, 3, 3, 2, 2, 2, 1, null, 3, 5, null, 7, null, 8, null});
-        // 使用convertTree2Array方法帮助验证（该方法在学点算法十四验证过）
+        // 使用convertTree2Array方法帮助验证（该方法在学点算法十一验证过）
         Integer[] arr = convertTree2Array(root);
         // 因为数组后面的null不影响数据，为了方便测试，将数组后面的null值都去掉
         int idx = arr.length - 1;
