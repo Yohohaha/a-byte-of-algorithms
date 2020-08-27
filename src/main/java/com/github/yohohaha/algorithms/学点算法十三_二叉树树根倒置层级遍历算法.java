@@ -4,10 +4,15 @@ import com.github.yohohaha.algorithms.commons.BinaryTreeNode;
 import org.junit.Test;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * created at 2020/08/03 16:35:01
@@ -20,16 +25,16 @@ public class 学点算法十三_二叉树树根倒置层级遍历算法 {
     public void testReverseOrder() {
         BinaryTreeNode<Integer> root = convertArray2Tree(new Integer[]{1, 2, 3, 4, 5, 8, 7, null, 9});
         Deque<Deque<BinaryTreeNode<Integer>>> outerStack = reverseOrder(root);
+        List<Integer> elems = new ArrayList<>();
         for (Deque<BinaryTreeNode<Integer>> internalStack : outerStack) {
             for (BinaryTreeNode<Integer> integerBinaryTreeNode : internalStack) {
-                System.out.print(integerBinaryTreeNode.data);
-                System.out.print(" ");
+                elems.add(integerBinaryTreeNode.data);
             }
-            System.out.println();
         }
+        assertThat(elems, is(Arrays.asList(9, 4, 5, 8, 7, 2, 3, 1)));
     }
 
-    private static <E extends Comparable<E>> Deque<Deque<BinaryTreeNode<E>>> reverseOrder(BinaryTreeNode<E> root) {
+    public static <E extends Comparable<E>> Deque<Deque<BinaryTreeNode<E>>> reverseOrder(BinaryTreeNode<E> root) {
         if (root == null) {
             return null;
         }
