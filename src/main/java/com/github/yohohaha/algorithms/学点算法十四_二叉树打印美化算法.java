@@ -65,15 +65,12 @@ public class 学点算法十四_二叉树打印美化算法 {
 
     @Test
     public void testBeautifyBinaryTreePrinting() {
-        beautifyBinaryTreePrinting(convertArray2Tree(new Integer[]{1, 2, 3, 5, 6, null, null, 7}), 3, 4);
+        beautifyBinaryTreePrinting(convertArray2Tree(new Integer[]{1,24, null,3}), 4);
     }
 
-    public static <E extends Comparable<E>> void beautifyBinaryTreePrinting(BinaryTreeNode<E> root, int levelInterval, int minNodeInterval) {
+    public static <E extends Comparable<E>> void beautifyBinaryTreePrinting(BinaryTreeNode<E> root, int minNodeInterval) {
         if (root == null) {
             return;
-        }
-        if (levelInterval < 3) {
-            throw new IllegalArgumentException("层级间隔必须大于3");
         }
         if (minNodeInterval < 3) {
             throw new IllegalArgumentException("节点最小间隔必须大于3");
@@ -157,18 +154,20 @@ public class 学点算法十四_二叉树打印美化算法 {
                 int startCol = 1;
                 for (int o = 0; o < levelSize; o++) {
                     Integer nodeCol = positionMap.get(new Position(height, o));
-                    for (int i = 0; i < nodeCol - startCol; i++) {
+                    int prefixLength = maxNodeLength / 2;
+                    int nodeStartCol = nodeCol - prefixLength;
+                    for (int i = 0; i < nodeStartCol - startCol; i++) {
                         System.out.print(" ");
                     }
                     BinaryTreeNode<E> node = curList.get(o);
                     if (node == NULL_NODE) {
                         for (int i = 0; i < maxNodeLength; i++) {
-                            System.out.print("_");
+                            System.out.print(" ");
                         }
                     } else {
                         System.out.print(toString(node, maxNodeLength));
                     }
-                    startCol += (nodeCol + maxNodeLength - 1);
+                    startCol = nodeStartCol + maxNodeLength;
                 }
                 // 当前层打印结束
                 if (height + 1 > h) {
@@ -194,7 +193,7 @@ public class 学点算法十四_二叉树打印美化算法 {
                             System.out.print("_");
                         }
                     } else {
-                        for (int i = leftCol + 1; i <= nodeCol; i++) {
+                        for (int i = leftCol + 1; i < nodeCol; i++) {
                             System.out.print(" ");
                         }
                     }
