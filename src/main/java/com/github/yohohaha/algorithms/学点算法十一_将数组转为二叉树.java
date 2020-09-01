@@ -15,7 +15,7 @@ import static org.junit.Assert.assertArrayEquals;
  *
  * @author Yohohaha
  */
-public class 学点算法十二_将数组转为二叉树 {
+public class 学点算法十一_将数组转为二叉树 {
 
     @Test
     public void testConvertArray2Tree() {
@@ -46,6 +46,8 @@ public class 学点算法十二_将数组转为二叉树 {
         BinaryTreeNode<T> root = new BinaryTreeNode<>(arr[0]);
         BinaryTreeNode<T> realRoot = root;
         Deque<BinaryTreeNode<T>> queue = new ArrayDeque<>(len);
+        // 数组中表示右孩子的索引
+        // 左孩子索引通过右孩子索引减1得到
         int rightNodeIdx = 2;
         // 无剩余节点，退出
         do {

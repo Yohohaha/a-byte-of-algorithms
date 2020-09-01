@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.yohohaha.algorithms.学点算法十_二叉树中序遍历算法_迭代实现.inorderTraversal;
-import static com.github.yohohaha.algorithms.学点算法十三_二叉树树根倒置层级遍历算法.reverseOrder;
-import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
+import static com.github.yohohaha.algorithms.学点算法十一_将数组转为二叉树.convertArray2Tree;
 
 /**
  * created at 2020/08/05 23:30:00

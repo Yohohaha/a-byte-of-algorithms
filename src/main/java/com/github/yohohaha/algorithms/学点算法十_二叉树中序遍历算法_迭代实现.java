@@ -9,10 +9,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
+import static com.github.yohohaha.algorithms.学点算法十一_将数组转为二叉树.convertArray2Tree;
 import static org.junit.Assert.assertEquals;
 
 /**
