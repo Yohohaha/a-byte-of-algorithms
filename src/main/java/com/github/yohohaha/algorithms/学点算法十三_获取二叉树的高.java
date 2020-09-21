@@ -1,13 +1,12 @@
 package com.github.yohohaha.algorithms;
 
 import com.github.yohohaha.algorithms.commons.BinaryTreeNode;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import static com.github.yohohaha.algorithms.学点算法十一_将数组转为二叉树.convertArray2Tree;
+import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 

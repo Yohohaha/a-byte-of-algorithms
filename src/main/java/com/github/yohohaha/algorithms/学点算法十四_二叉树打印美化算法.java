@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.yohohaha.algorithms.学点算法十一_将数组转为二叉树.convertArray2Tree;
+import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
 
 /**
  * created at 2020/08/05 23:30:00

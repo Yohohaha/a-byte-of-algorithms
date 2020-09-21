@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 
-import static com.github.yohohaha.algorithms.学点算法十一_将数组转为二叉树.convertArray2Tree;
+import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
  *
  * @author Yohohaha
  */
-public class 学点算法十三_二叉树树根倒置层级遍历算法 {
+public class 学点算法十五_二叉树树根倒置层级遍历算法 {
 
     @Test
     public void testReverseOrder() {

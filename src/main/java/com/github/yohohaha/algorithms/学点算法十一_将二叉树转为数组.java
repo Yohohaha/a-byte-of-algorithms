@@ -17,23 +17,29 @@ import static org.junit.Assert.assertArrayEquals;
  *
  * @author Yohohaha
  */
-public class 学点算法十二_将二叉树转为数组 {
+public class 学点算法十一_将二叉树转为数组 {
 
     @Test
     public void testConvertTree2Array() {
-        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(0);
-        BinaryTreeNode<Integer> left = new BinaryTreeNode<>(root, 1);
-        BinaryTreeNode<Integer> right = new BinaryTreeNode<>(root, 2);
-        left.leftChild = new BinaryTreeNode<>(left, 3);
-        right.rightChild = new BinaryTreeNode<>(right, 4);
-        root.leftChild = left;
-        root.rightChild = right;
-        Integer[] arr = convertTree2Array(root);
+        BinaryTreeNode<Integer> one = new BinaryTreeNode<>(1);
+        BinaryTreeNode<Integer> two = new BinaryTreeNode<>(one, 2);
+        BinaryTreeNode<Integer> three = new BinaryTreeNode<>(one, 3);
+        one.leftChild = two;
+        one.rightChild = three;
+        BinaryTreeNode<Integer> four = new BinaryTreeNode<>(two, 4);
+        BinaryTreeNode<Integer> five = new BinaryTreeNode<>(two, 5);
+        two.leftChild = four;
+        two.rightChild = five;
+        BinaryTreeNode<Integer> six = new BinaryTreeNode<>(three, 6);
+        BinaryTreeNode<Integer> seven = new BinaryTreeNode<>(three, 7);
+        three.leftChild = six;
+        three.rightChild = seven;
+        Integer[] arr = convertTree2Array(one);
         // 因为数组后面的null不影响数据，为了方便测试，将数组后面的null值都去掉
         int idx = arr.length - 1;
         while (arr[idx] == null) {idx--;}
         Integer[] nullFilteredArr = Arrays.copyOf(arr, idx + 1);
-        assertArrayEquals(new Integer[]{0, 1, 2, 3, null, null, 4}, nullFilteredArr);
+        assertArrayEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7}, nullFilteredArr);
     }
 
     /**
@@ -75,6 +81,7 @@ public class 学点算法十二_将二叉树转为数组 {
             }
             // 从队列中取出下一个节点
             currentNode = queue.poll();
+        // 如果currentNode为null，表示没有剩余元素了，可退出循环
         } while (currentNode != null);
         return list.toArray((T[]) Array.newInstance(root.data.getClass(), 0));
     }
