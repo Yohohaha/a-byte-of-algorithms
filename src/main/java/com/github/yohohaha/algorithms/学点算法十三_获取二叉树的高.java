@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import static com.github.yohohaha.algorithms.学点算法十二_将数组转为二叉树.convertArray2Tree;
+import static com.github.yohohaha.algorithms.学点算法十一_将数组转为二叉树.convertArray2Tree;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
  *
  * @author Yohohaha
  */
-public class 学点算法十二_获取二叉树的高 {
+public class 学点算法十三_获取二叉树的高 {
 
     @Test
     public void testGetHeightOfBinaryTree() {

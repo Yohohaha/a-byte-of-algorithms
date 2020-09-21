@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
-import static com.github.yohohaha.algorithms.学点算法十一_将二叉树转为数组.convertTree2Array;
+import static com.github.yohohaha.algorithms.学点算法十二_将二叉树转为数组.convertTree2Array;
 import static org.junit.Assert.assertArrayEquals;
 
 /**

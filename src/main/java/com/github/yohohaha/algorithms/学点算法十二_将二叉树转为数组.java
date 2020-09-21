@@ -17,7 +17,7 @@ import static org.junit.Assert.assertArrayEquals;
  *
  * @author Yohohaha
  */
-public class 学点算法十一_将二叉树转为数组 {
+public class 学点算法十二_将二叉树转为数组 {
 
     @Test
     public void testConvertTree2Array() {
